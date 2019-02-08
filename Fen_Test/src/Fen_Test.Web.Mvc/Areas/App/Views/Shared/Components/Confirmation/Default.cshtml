@@ -1,0 +1,21 @@
+﻿
+@{
+    Layout = null;
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<div class="modal-body">
+    <h1>
+        @ViewBag.msg
+    </h1>
+    <p>Are you sure you want to delete this?</p>
+
+</div>
+<div class="modal-footer">
+
+    <button type="button" class="btn btn-primary save-button" id="btnAdd" name="btnAdd" title="Add"><span class="k-icon k-i-add"></span>@L("Add")</button>
+
+    <button type="button" class="btn btn-secondary close-button" data-dismiss="modal" title="Cancel"><span class="k-icon k-i-cancel"></span> @L("Cancel")</button>
+</div>
+<script>
+    alert($("#hdnMessage").val());
+</script>

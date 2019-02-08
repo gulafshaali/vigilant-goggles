@@ -1,0 +1,33 @@
+﻿@{
+    Layout = null;
+}
+@using Fen_Test.Web.Areas.App.Views.MyCustom.Components.Pages
+@*@using Fen_Test.Web.Areas.App.Views.MyCustom.Components.Pages*@
+@using Fen_Test.Web.Areas.App.Models.NavigationBar
+@model NavBarViewModel
+
+
+
+<nav>
+
+
+
+
+    <ul class="m-menu__nav m-menu__nav--dropdown-submenu-arrow"
+        role="menubar"
+        aria-label="@L("LeftMenu")">
+        @for (var i = 0; i < Model.NavBarItems.Count(); i++)
+        {
+            var menuItem = Model.NavBarItems[i];
+            @Html.Partial("_MyCustomView", new MyViewModel
+       {
+           names = menuItem.Text,
+           icon=menuItem.Icon,
+           url=menuItem.URL,
+           Id = menuItem.Id,
+       })
+        }
+    </ul>
+
+</nav>
+

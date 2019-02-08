@@ -1,0 +1,38 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+<div class="modal-header">
+    <h5 class="modal-title">
+        <span>@L("SelectFormFields")</span>
+    </h5>
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+</div>
+<div class="modal-body">
+    <div class="row align-items-center m--margin-bottom-10">
+        <div class="col-xl-12">
+            <div class="form-group m-form__group align-items-center">
+                <div class="input-group">
+                    <input type="text" id="txtsearch" class="form-control m-input" placeholder="@L("SearchWithThreeDot")" @*value="@Model.FilterText"*@>
+                    <span class="input-group-btn">
+                        <button id="GetFieldsData" class="btn btn-primary" type="button"><i class="flaticon-search-1" aria-label="@L("Search")"></i></button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input id="hdnRowIndex" type="hidden" value="0" />
+    <input id="hdnControlListId" type="hidden" value="0" />
+    <div id="DivPopUpGrid">
+        <div class="modal-body pt-0">
+            <div id="grdFieldList" style="width:auto; margin: 0 auto;"></div>
+
+        </div>
+
+    </div>
+</div>
+<div class="modal-footer">
+
+    <button type="button" class="btn btn-primary save-button" id="btnAdd"  name="btnAdd" title="Add"><span class="k-icon k-i-add"></span>@L("Add")</button>
+   
+    <button type="button" class="btn btn-secondary close-button" data-dismiss="modal" title="Cancel"><span class="k-icon k-i-cancel"></span> @L("Cancel")</button>
+</div>

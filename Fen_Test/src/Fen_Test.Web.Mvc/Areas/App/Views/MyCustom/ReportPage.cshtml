@@ -1,0 +1,271 @@
+﻿@using Fen_Test.Web.Areas.App.Models.NavigationBar
+@using Fen_Test.Web.Areas.App.Views.MyCustom.Components.Pages
+@{
+    ViewData["Title"] = "ReportPage";
+}
+@model NavBarViewModel
+
+@section Scripts
+    {
+
+    <script src="~/view-resources/Areas/App/Views/MyCustom/Index.js" asp-append-version="true"></script>
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.3.1017/styles/kendo.common.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.3.1017/styles/kendo.rtl.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.3.1017/styles/kendo.silver.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.3.1017/styles/kendo.mobile.all.min.css" />
+    <script src="https://kendo.cdn.telerik.com/2018.3.1017/js/kendo.all.min.js"></script>
+    <script src="~/view-resources/Areas/App/Views/MyCustom/Components/Pages/_FormFieldsData.js" asp-append-version="true"></script>
+}
+<!-- BEGIN: Subheader -->
+<div class="m-subheader pt-0">
+    <div class="d-flex align-items-center">
+        <div class="mr-auto">
+            <h3 class="m-subheader__title m-subheader__title--separator">@L("Reports")</h3>
+            <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+                <li class="m-nav__item">
+                    <a href="#" class="m-nav__link">
+                        <span class="m-nav__link-text">@L("Report")</span>
+                    </a>
+                </li>
+                <li class="m-nav__separator">-</li>
+                <li class="m-nav__item">
+                    <a href="javascript:void(0)" class="m-nav__link">
+                        <span class="m-nav__link-text">@L("CreateReport")</span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+
+    </div>
+</div>
+<!-- END: Subheader -->
+<div class="m-portlet__body">
+    <fieldset>
+
+
+        <div class="form-group">
+            <label for="Report_Name" class="col-form-label">@L("ReportName")<span style="color:red">*</span></label>
+            <input type="text" id="ReportName" name="Report_Name" class="form-control m-input" required />
+        </div>
+        <div class="form-group">
+            <label class="col-form-label">Status</label>
+            <input type="radio" id="Active" name="Status" value="Active" required checked /> Active
+            <input type="radio" id="Inactive" name="Status" value="InActive" required /> Inactive
+
+            <span class="k-invalid-msg" data-for="Status"></span><br />
+
+        </div>
+        <div class="form-group">
+            <label for="SelectedData" class="col-form-label">@L("SelectedPages/Forms/Fields")<span style="color:red">*</span></label>
+            <div id="SelectedData" name="SelectedData" class="form-control m-input">
+                @for (var i = 0; i < Model.NavBarItems.Count(); i++)
+                {
+
+                    @foreach (var formData in Model.NavBarItems[i].FormsList)
+                    {
+
+                        var multiselectId = Model.NavBarItems[i].Id.ToString() + "_" + formData.Id.ToString();
+                        <div id="div_@multiselectId" style="display:none">
+                            <label id="Pagelbl_@Model.NavBarItems[i].Id.ToString()" class='col- form-label' data-id="@Model.NavBarItems[i].Id.ToString()">@Model.NavBarItems[i].Text /</label>
+                            <label for='@multiselectId' id="lbl_@multiselectId" class='col- form-label' data-id="@formData.Id">@formData.FormName:&nbsp;&nbsp; </label>
+                            <input id="@multiselectId" />
+                        </div>
+                        <br />
+                    }
+                }
+            </div>
+        </div>
+    </fieldset>
+   
+
+        <section id="SelectFieldsArea" class="tabcontent">
+            <nav>
+                <div id="tabstrip">
+                    <ul class="m-menu__nav m-menu__nav--dropdown-submenu-arrow"
+                        role="menubar"
+                        aria-label="@L("LeftMenu")">
+                        @for (var i = 0; i < Model.NavBarItems.Count(); i++)
+                        {
+                            var menuItem = Model.NavBarItems[i];
+                            <li>
+
+                                <a class="m-menu__link1 " data-test="@menuItem.Id"
+                                   role="menuitem"
+                                   aria-haspopup="true"
+                                   aria-expanded="false"
+                                   tabindex="-1">
+                                    <i class="m-menu__link-icon @menuItem.Icon"></i>
+                                    <span class="m-menu__link-text">
+                                        <span class="title">@menuItem.Text</span>
+                                    </span>
+
+                                </a>
+
+                            </li>
+                        }
+
+                    </ul>
+                    @{int j = 0; int k = 0;}
+                    @for (var i = 0; i < Model.NavBarItems.Count(); i++)
+                    {
+                        <div style="display:none;">
+                            <div id="searchResults_@Model.NavBarItems[i].Id" class="searchResult">
+                                @*<div id="searchResults_@i" class="searchResult">*@
+
+                                @*@{int j = 0; int k = 0;}*@
+                                <input type="hidden" name="pageId" id="pageId" value="@Model.NavBarItems[i].Id" data-pagename="@Model.NavBarItems[i].Text">
+
+
+                                @foreach (var formData in Model.NavBarItems[i].FormsList)
+                                {
+                                    j++; k++;
+                                    var tempId = Model.NavBarItems[i].Id.ToString() + "_" + formData.Id.ToString();
+                                    <div id="formContent">
+                                        <label for="FormValue" id="formdata" class="formdata" data-id="@formData.Id"><b>@formData.FormName</b></label>
+
+                                        @*<div id="example" role="application" class="example_@i">*@
+                                        <div id="example_@tempId" role="application" class="example_@i">
+                                            <label for="Select_All_Fields_@tempId" class="m-checkbox">
+                                                <input id="Select_All_Fields_@tempId" type="checkbox" name="SelectAll" value="true" onchange="ChecBoxFunction(this);" />
+                                                @*<label for="Select_All_Fields_@j" class="m-checkbox">*@
+                                                @*<input id="Select_All_Fields_@j" type="checkbox" name="SelectAll" value="true" onchange="ChecBoxFunction(this);" />*@
+                                                <b> @L("SelectAllFields")</b>
+                                                <span></span>
+                                            </label>
+                                            <div class="demo-section k-content">
+                                                <div>
+                                                    <label for="fieldValues" id="employees">@L("SelectFields")</label>
+                                                    <label for="selectedFields">@L("SelectedFields")</label>
+                                                    <br />
+                                                    @*<select id="fieldValues_@j">*@
+                                                    <select id="fieldValues_@tempId">
+                                                        @*@foreach (var data in formData.FieldsData)
+                                                        {
+                                                            <option value="@data.FieldId" data-item="hsuu">@data.FieldsName</option>
+                                                        }*@
+
+                                                    </select>
+
+                                                    @*<select id="selectedFields_@k"></select>*@
+                                                    <select id="selectedFields_@tempId"></select>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <br />
+
+                                }
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </nav>
+
+
+
+            <!-- BEGIN: Form Action -->
+            <div class="m-portlet__foot m-portlet__foot--fit">
+                <div class="m-form__actions m-form__actions">
+                    <div class="row">
+                        <div class="col-lg-12 text-right">
+
+                            <button type="button" name="btnReset" id="btnReset" title="@L("Reset")" class="btn btn-secondary close-button"><span class="k-icon k-i-cancel"></span> @L("Reset")</button>
+                            <button type="button" name="btnNext" id="btnNext" title="@L("Next")" class="btn btn-primary save-button"><span><i class="fa fa-save"></i><span>@L("Next")</span></span></button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END: Form Action -->
+        </section>
+        <section id="QueryBuilderArea" class="tabcontent" style="display:none">
+            <input type="hidden" id="hdnRowIndex" />
+            <div>
+                <table id="tblQueryControl" class="table">
+                    <tr>
+                        <td>
+                            <div class='row RowController'>
+                                <div class="col-3">
+                                    <select id="Column_0"></select>
+                                </div>
+                                <div class="col-3">
+                                    <select id="Condition_0" class='Operator'></select>
+                                </div>
+                                <div class="col-3">
+                                    <input id="Value_0" type="text" name="value" />
+                                </div>
+                                <div class="col-3">
+                                    <button type="button" onclick="return addRow()" title="Cancel"><span class="k-icon k-i-add"></span></button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                </table>
+                <table class="table">
+                    <tr>
+                        <td>
+                            <div class="row" style="padding-top:15px; padding-bottom:15px;">
+                                <div class="col-4">
+                                    Group Report By
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" id="GroupBy" name="GroupBy" />
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+
+                <!-- BEGIN: Form Action -->
+                <div class="m-portlet__foot m-portlet__foot--fit">
+                    <div class="m-form__actions m-form__actions">
+                        <div class="row">
+                            <div class="col-lg-12 text-right">
+                                <button type="button" id="btnPrevious" title="@L("Previous")" class="btn btn-secondary close-button"><span class="k-icon k-i-add"></span>@L("Previous")</button>
+                                <button type="button" name="btnSave" id="btnSave" title="@L("Save")" class="btn btn-primary save-button"><span><i class="fa fa-save"></i><span>@L("Save")</span></span></button>
+                                <button type="button" onclick="return GenerateQuery()" title="@L("Generate")" class="btn btn-primary save-button"><span class="k-icon k-i-add"></span>@L("Generate")</button>
+                                <button type="button" name="btnCancel" id="btnCancel" title="@L("Cancel")" class="btn btn-secondary close-button"><span class="k-icon k-i-cancel"></span> @L("Cancel")</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END: Form Action -->
+
+            </div>
+        </section>
+
+    </div>
+
+    <style>
+        .demo-section label {
+            margin-bottom: 5px;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        #employees {
+            width: 270px;
+        }
+
+        #example .demo-section {
+            max-width: none;
+            width: 515px;
+        }
+
+        #example .k-listbox {
+            width: 236px;
+            height: 310px;
+        }
+
+            #example .k-listbox:first-of-type {
+                width: 270px;
+                margin-right: 1px;
+            }
+    </style>

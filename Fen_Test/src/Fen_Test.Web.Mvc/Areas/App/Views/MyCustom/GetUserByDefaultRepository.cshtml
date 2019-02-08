@@ -1,0 +1,11 @@
+﻿
+@{
+    ViewData["Title"] = "GetUserByDefaultRepository";
+    Layout = "~/Areas/App/Views/Layout/_Layout.cshtml";
+}
+@foreach (var name in ViewBag.Names)
+{
+    <h2>@name</h2>
+}
+
+    <h2>@ViewBag.TimeConsumed</h2>

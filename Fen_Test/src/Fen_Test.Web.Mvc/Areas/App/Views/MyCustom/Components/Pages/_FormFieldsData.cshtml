@@ -1,0 +1,71 @@
+﻿@using Fen_Test.Web.Areas.App.Views.MyCustom.Components.Pages
+
+@model FormFieldsViewModel
+
+
+<script src="~/view-resources/Areas/App/Views/MyCustom/Components/Pages/_FormFieldsData.js" asp-append-version="true"></script>
+
+
+<style>
+    .demo-section label {
+        margin-bottom: 5px;
+        font-weight: bold;
+        display: inline-block;
+    }
+
+    #employees {
+        width: 270px;
+    }
+
+    #example .demo-section {
+        max-width: none;
+        width: 515px;
+    }
+
+    #example .k-listbox {
+        width: 236px;
+        height: 210px;
+    }
+
+        #example .k-listbox:first-of-type {
+            width: 270px;
+            margin-right: 1px;
+        }
+</style>
+<input type="hidden" name="pageId" id="pageId" value="@Model.PageId">
+@{int i = 0; int j = 0;}
+@foreach (var formData in Model.FormData)
+{
+    i++; j++;
+    <div id="formContent">
+    <label for="FormValue" id="formdata" class="formdata" data-id="@formData.Id"><b>@formData.FormName</b></label>
+    <div id="example" role="application" class="example">
+        <label for="Select_All_Fields_@i" class="m-checkbox">
+            <input id="Select_All_Fields_@i" type="checkbox" name="SelectAll" value="true" onchange="ChecBoxFunction(this);" />
+            <b> @L("SelectAllFields")</b>
+            <span></span>
+        </label>
+        <div class="demo-section k-content">
+            <div>
+                <label for="fieldValues" id="employees">@L("SelectFields")</label>
+                <label for="selectedFields">@L("SelectedFields")</label>
+                <br />
+                <select id="fieldValues_@i">
+                    @foreach (var data in formData.FieldsData)
+                    {
+                        <option value="@data.FieldId">@data.FieldsName</option>
+                    }
+
+                </select>
+
+                <select id="selectedFields_@j"></select>
+            </div>
+        </div>
+
+    </div>
+        </div>
+    <br />
+    <br />
+}
+
+

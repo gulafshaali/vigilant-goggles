@@ -1,0 +1,69 @@
+﻿@{
+        Layout = null;
+    }
+
+    @using Fen_Test.Web.Areas.App.Views.Shared.Components.NavBar
+    @using Fen_Test.Web.Areas.App.Models.NavigationBar
+    @model NavBarViewModel
+
+
+
+    <nav>
+
+
+
+
+        <ul class="m-menu__nav m-menu__nav--dropdown-submenu-arrow"
+            role="menubar"
+            aria-label="@L("LeftMenu")">
+            @for (var i = 0; i < Model.NavBarItems.Count(); i++)
+            {
+                var menuItem = Model.NavBarItems[i];
+                @Html.Partial("_MyCustomView", new MyViewModel
+           {
+               names = menuItem.Text,
+               icon=menuItem.Icon,
+               url=menuItem.URL,
+               Id = menuItem.Id,
+           })
+            }
+        </ul>
+
+    </nav>
+
+
+
+@*@using Fen_Test.Web.Areas.App.Models.Layout
+@using Fen_Test.Web.Areas.App.Views.Shared.Components.AppMenu
+@using Fen_Test.Web.Theme
+@inject IUiThemeCustomizer UiThemeCustomizer
+@model MenuViewModel
+@{
+
+}
+<nav id="m_ver_menu"
+     aria-label="@L("LeftMenu")"
+     class="m-aside-menu
+            m-aside-menu--skin-
+            m-aside-menu--submenu-skin"
+     data-menu-vertical="true"  
+     data-menu-dropdown-timeout="500">
+    <ul class="m-menu__nav"
+        role="menubar"
+        aria-label="@L("LeftMenu")">
+        @for (var i = 0; i < Model.Menu.Items.Count; i++)
+        {
+            var menuItem = Model.Menu.Items[i];
+            @Html.Partial("_MyCustomView", new UserMenuItemViewModel
+            {
+                MenuItem = menuItem,
+                MenuItemIndex = i,
+                RootLevel = true,
+                CurrentPageName = Model.CurrentPageName
+            })
+        }
+    </ul>
+</nav>*@
+
+
+

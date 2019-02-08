@@ -1,0 +1,71 @@
+﻿@using Fen_Test.Web.Areas.App.Startup
+@using Abp.Application.Services.Dto
+@using Fen_Test.Authorization
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/App/Views/Layout/_Layout.cshtml";
+}
+
+@section Scripts
+    {
+    <environment names="Development">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.3.1017/styles/kendo.common.min.css" />
+        <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.3.1017/styles/kendo.rtl.min.css" />
+        <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.3.1017/styles/kendo.silver.min.css" />
+        <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.3.1017/styles/kendo.mobile.all.min.css" />
+        <script src="https://kendo.cdn.telerik.com/2018.3.1017/js/kendo.all.min.js"></script>
+        <script src="~/view-resources/Areas/App/Views/Fields/Index.js" asp-append-version="true"></script>
+        <script src="~/view-resources/Areas/App/Views/Fields/_CreateOrEditModal.js" asp-append-version="true"></script>
+
+
+    </environment>
+}
+
+@*<input type="hidden" id="hdntxt" value="@ViewBag.mydata">*@
+<div class="m-subheader">
+    <div class="row align-items-center">
+        <div class="mr-auto col-sm-12 col-md-6">
+            <h3 class="m-subheader__title m-subheader__title--separator">
+                <span>@L("Fields")</span>
+            </h3>
+            <span class="m-section__sub">
+                @L("FieldsInfo")
+            </span>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="row align-items-center">
+    <div class="row align-items-center m--margin-bottom-10">
+        <div class="col-xl-12">
+            <div class="form-group m-form__group align-items-center">
+                <div class="input-group">
+                    <input type="text" id="txtsearch" class="form-control m-input" placeholder="@L("SearchWithThreeDot")" value="@Model.FilterText">
+                    <span class="input-group-btn">
+                        <button id="GetFieldsData" class="btn btn-primary" type="button"><i class="flaticon-search-1" aria-label="@L("Search")"></i></button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*<div class="mr-auto col-sm-12 col-md-6">
+
+            <input type="text" id="txtsearch" name="txtsearch" placeholder="Search">
+
+        </div>*@
+    <div class="col-sm-12 col-md-6 text-right">
+
+
+        <button id="CreateNewField" class="btn btn-primary"><i class="fa fa-plus"></i> @L("AddNewField")</button>
+
+    </div>
+</div>
+<div id="gridAllReport" style="margin: 0 auto;"></div>
+<div id="gridAllFields" style="margin: 0 auto;"></div>
+
+

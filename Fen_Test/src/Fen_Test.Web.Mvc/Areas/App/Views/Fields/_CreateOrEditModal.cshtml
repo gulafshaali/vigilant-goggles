@@ -1,0 +1,73 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+
+
+
+@using Fen_Test.Web.Areas.App.Models.Common.Modals
+@using Fen_Test.Web.Areas.App.Models.Fields
+@model CreateOrEditFieldsViewModal
+
+
+
+@Html.Partial("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.input.Id.HasValue ? (L("EditField") + ": " + Model.input.FieldName) : L("CreateNewField")))
+
+
+
+<form id="CreateFieldForm" name="CreateFieldForm" data-role="validator" novalidate="novalidate" method="post">
+    <input type="hidden" id="hdnFieldType" name="hdnFieldType" value="@Model.input.FieldType">
+    @if (Model.IsEditMode)
+    {
+        <input type="hidden" name="Id" value="@Model.input.Id" />
+    }
+    <div class="modal-body">
+        <div class="modal-body pt-0">
+            <div class="form-group">
+                <label class="col-form-label">Field Name<span style="color:red">*</span></label>
+                <input type="text" name="FieldName" placeholder="Please enter field name" required id="textFieldName" value="@Model.input.FieldName">
+            </div>
+            <div class="form-group">
+                <label class="col-form-label">Field Type<span style="color:red">*</span></label>
+                <input type="text" name="FieldType" placeholder="Please enter field Type" required id="txtFiedlType" title="Field Type is required">
+            </div>
+            @if (Model.input.Status == "true")
+            {
+                <div class="form-group">
+                    <label class="col-form-label">Status<span style="color:red">*</span></label>
+                    <input type="radio" id="Active" name="Status" value="Active" required checked /> Active
+                    <input type="radio" id="Inactive" name="Status" value="InActive" required /> Inactive
+
+                    <span class="k-invalid-msg" data-for="Status"></span><br />
+
+                </div>
+            }
+            else
+            {
+                <div class="form-group">
+                    <label class="col-form-label">Status<span style="color:red">*</span></label>
+                    <input type="radio" id="Active" name="Status" value="Active" required /> Active
+                    <input type="radio" id="Inactive" name="Status" value="InActive" required checked /> Inactive
+
+                    <span class="k-invalid-msg" data-for="Status"></span><br />
+
+                </div>
+            }
+
+
+
+
+        </div>
+    </div>
+    <div class="modal-footer">
+
+        <button type="button" class="btn btn-primary save-button" id="btnSave" name="btnSave" title="Add"><span class="k-icon k-i-add"></span>@L("Save")</button>
+        <button type="button" class="btn btn-primary save-button" id="btnAddMore" name="btnSave&More" title="Save & AddMore"><span class="k-icon k-i-add"></span> @L("Save&AddMore")</button>
+        <button type="button" class="btn btn-secondary close-button" data-dismiss="modal" title="Cancel"><span class="k-icon k-i-cancel"></span> @L("Cancel")</button>
+    </div>
+
+</form>
+
+
+@*@await Component.InvokeAsync("Confirmation", new { id = 1 })*@
+

@@ -1,0 +1,64 @@
+﻿@*@{
+        ViewData["Title"] = "Index";
+    }
+
+    <h2>Index</h2>*@
+
+
+
+
+@{
+    ViewData["Title"] = "FormGrid";
+}
+
+<h2>FormGrid</h2>
+
+
+@section Scripts
+    {
+    <environment names="Development">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.3.1017/styles/kendo.common.min.css" />
+        <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.3.1017/styles/kendo.rtl.min.css" />
+        <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.3.1017/styles/kendo.silver.min.css" />
+        <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.3.1017/styles/kendo.mobile.all.min.css" />
+        <script src="https://kendo.cdn.telerik.com/2018.3.1017/js/kendo.all.min.js"></script>
+        <script src="~/view-resources/Areas/App/Views/Forms/Index.js" asp-append-version="true"></script>
+        <script src="~/view-resources/Areas/App/Views/Forms/_AddFormFields.js" asp-append-version="true"></script>
+
+    </environment>
+}
+<div class="m-subheader">
+    <div class="row align-items-center">
+        <div class="mr-auto col-sm-12 col-md-6">
+            <h3 class="m-subheader__title m-subheader__title--separator">
+                <span>@L("Forms")</span>
+            </h3>
+            <span class="m-section__sub">
+                @L("FormsInfo")
+            </span>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="row align-items-center">
+
+
+    <div class="col-sm-12 col-md-6 text-right">
+
+
+        <button type="button" id="AddNewField" title="Add" class="btn btn-primary"><i class="fa fa-plus"></i> @L("AddNewField")</button>
+
+    </div>
+
+    @*<button type="button" ><span class="k-icon k-i-add"></span>Add New Field </button>*@
+
+
+</div>
+
+<div id="grdFormFieldList" style="margin: 0 auto;"></div>
+
+

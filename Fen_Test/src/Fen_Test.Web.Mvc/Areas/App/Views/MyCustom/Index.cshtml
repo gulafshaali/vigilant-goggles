@@ -1,0 +1,78 @@
+﻿
+@section Scripts
+    {
+<script src="~/view-resources/Areas/App/Views/MyCustom/MyCustom.js"></script>
+    @*<script src="~/view-resources/Areas/App/Views/MyCustom/Index.js" asp-append-version="true"></script>*@
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.3.1017/styles/kendo.common.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.3.1017/styles/kendo.rtl.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.3.1017/styles/kendo.silver.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.3.1017/styles/kendo.mobile.all.min.css" />
+    <script src="https://kendo.cdn.telerik.com/2018.3.1017/js/kendo.all.min.js"></script>
+}
+<!-- BEGIN: Subheader -->
+<div class="m-subheader pt-0">
+    <div class="d-flex align-items-center">
+        <div class="mr-auto">
+            <h3 class="m-subheader__title m-subheader__title--separator">@L("Reports")</h3>
+            <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+                <li class="m-nav__item">
+                    <a href="#" class="m-nav__link">
+                        <span class="m-nav__link-text">@L("Report")</span>
+                    </a>
+                </li>
+                <li class="m-nav__separator">-</li>
+                <li class="m-nav__item">
+                    <a href="javascript:void(0)" class="m-nav__link">
+                        <span class="m-nav__link-text">@L("CreateReport")</span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+
+    </div>
+</div>
+<!-- END: Subheader -->
+<div class="m-portlet__body">
+    <fieldset>
+
+
+        <div class="form-group">
+            <label for="Report_Name" class="col-form-label">@L("ReportName")<span style="color:red">*</span></label>
+            <input type="text" id="ReportName" name="Report_Name" class="form-control m-input" required />
+        </div>
+        <div class="form-group">
+            <label class="col-form-label">Status</label>
+            <input type="radio" id="Active" name="Status" value="Active" required checked /> Active
+            <input type="radio" id="Inactive" name="Status" value="InActive" required /> Inactive
+
+            <span class="k-invalid-msg" data-for="Status"></span><br />
+
+        </div>
+        <div class="form-group">
+            <label for="SelectedData" class="col-form-label">@L("SelectedPages/Forms/Fields")<span style="color:red">*</span></label>
+            <div id="SelectedData" name="SelectedData" class="form-control m-input" required/>
+        </div>
+    </fieldset>
+
+    <fieldset style="border:1px solid grey">
+        @await Component.InvokeAsync("Pages")
+
+        <div id="searchResults"></div>
+    </fieldset>
+
+</div>
+<!-- BEGIN: Form Action -->
+<div class="m-portlet__foot m-portlet__foot--fit">
+    <div class="m-form__actions m-form__actions">
+        <div class="row">
+            <div class="col-lg-12 text-right">
+
+                <button type="button" name="btnReset" id="btnReset" title="@L("Reset")" class="btn btn-secondary close-button"><span class="k-icon k-i-cancel"></span> @L("Reset")</button>
+                <button type="button" name="btnNext" id="btnNext" title="@L("Next")" class="btn btn-primary save-button"><span><i class="fa fa-save"></i><span>@L("Next")</span></span></button>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END: Form Action -->
